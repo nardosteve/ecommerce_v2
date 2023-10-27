@@ -1,3 +1,12 @@
+<?php
+
+require_once 'includes/config.php';
+
+$query = "SELECT * FROM roles";
+
+$results = $conn->query($query);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -512,7 +521,7 @@
                 <div class="d-sm-flex flex-row-reverse justify-content-between border-bottom">
                   <div>
                     <div class="btn-wrapper">
-                    <a href="#" class="btn btn-success text-white me-0"><i class="icon-user"></i> Add Role</a>
+                      <a type="button" class="btn btn-success text-white me-0" data-bs-toggle="modal" data-bs-target="#role"><i class="icon-user"></i> Add Role</a>
                       <a href="#" class="btn btn-otline-dark align-items-center"><i class="icon-share"></i> Share</a>
                       <a href="#" class="btn btn-otline-dark"><i class="icon-printer"></i> Print</a>
                       <a href="#" class="btn btn-primary text-white me-0"><i class="icon-download"></i> Export</a>
@@ -522,30 +531,57 @@
               </div>
             </div>
 
+            <!-- Modal Popup -->
+            <div class="modal fade" id="role" tabindex="-1" aria-labelledby="" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    ...
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Modal Popup -->
+
             <div class="col-lg-12 grid-margin stretch-card mt-4">
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Roles</h4>
                   <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table">
                       <thead>
                         <tr> 
                           <th>ID</th>
                           <th>Role Name</th>
                           <th>Created At</th>
                           <th>Updated At</th>
-                          <th>Action</th>
+                          <!-- <th>Action</th> -->
                         </tr>
                       </thead>
                       <tbody>
 
-                        <tr>
-                          <td class="py-1">0</td>
-                          <td>1</td>
-                          <td>2</td>
-                          <td>3</td>
-                          <td>4</td>
-                        </tr>
+                        <?php
+                          if($results->num_rows > 0){
+                            while($row = $results->fetch_assoc()){
+                              echo '<tr>';
+                                echo '<td>' . $row["id"] . '</a> </td>';
+                                echo '<td>' . $row["role_name"] . '</td>';
+                                echo '<td>' . $row["created_at"] . '</td>';
+                                echo '<td>' . $row["updated_at"] . '</td>';
+                              echo '<tr>';
+                            }
+                          }else{
+                            echo "<td class='mx-auto text-center'>No Data</td>";
+                          }
+                        ?>
                         
                       </tbody>
                     </table>

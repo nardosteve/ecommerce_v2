@@ -4,8 +4,6 @@
    $query = "SELECT * FROM users";
 
    $results = $conn->query($query);
-
-   var_dump($results);
 ?>
 
 <!DOCTYPE html>
@@ -209,6 +207,7 @@
       </div>
     </nav>
     <!-- partial -->
+
     <div class="container-fluid page-body-wrapper">
       <!-- partial:partials/_settings-panel.html -->
       <div class="theme-setting-wrapper">
@@ -520,10 +519,9 @@
             <div class="col-sm-12">
               <div class="home-tab">
                 <div class="d-sm-flex flex-row-reverse justify-content-between border-bottom">
-
                   <div>
                     <div class="btn-wrapper">
-                      <a href="#" class="btn btn-success text-white me-0"><i class="icon-download"></i> Add User</a>
+                      <a href="#" class="btn btn-success text-white me-0" data-bs-toggle="modal" data-bs-target="#user"><i class="icon-user"></i> Add User</a>
                       <a href="#" class="btn btn-otline-dark align-items-center"><i class="icon-share"></i> Share</a>
                       <a href="#" class="btn btn-otline-dark"><i class="icon-printer"></i> Print</a>
                       <a href="#" class="btn btn-primary text-white me-0"><i class="icon-download"></i> Export</a>
@@ -533,12 +531,76 @@
               </div>
             </div>
 
+            <!-- Modal Popup -->
+            <div class="modal fade" id="user" tabindex="-1" aria-labelledby="" aria-hidden="true">
+              <div class="modal-dialog  modal-xl">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add User</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                    <div class="modal-body">
+                        <form class="forms-sample">
+                            <div class="row">
+                              <div class="form-group col">
+                                <label for="firstName">Firstname</label>
+                                <input type="text" class="form-control" id="firstName" placeholder="Firstname">
+                              </div>
+                              <div class="form-group col">
+                                <label for="lastName">Lastname</label>
+                                <input type="text" class="form-control" id="lastName" placeholder="Lastname">
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="form-group col">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" id="username" placeholder="Username">
+                              </div>
+                              <div class="form-group col">
+                                <label for="email">Email Address</label>
+                                <input type="email" class="form-control" id="email" placeholder="Email">
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="form-group col">
+                                <label for="exampleInputPassword4">Password</label>
+                                <input type="password" class="form-control" id="exampleInputPassword4" placeholder="Password">
+                              </div>
+
+                              <div class="form-group col">
+                                <label for="exampleInputPassword4">Password Confirm</label>
+                                <input type="password" class="form-control" id="exampleInputPassword4" placeholder="Password">
+                              </div>
+                              <!-- <div class="form-group col">
+                                <label for="exampleSelectGender">Gender</label>
+                                  <select class="form-control" id="exampleSelectGender">
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                  </select>
+                                </div> -->
+                            </div>
+
+                            <!-- <div class="form-group">
+                              <label for="exampleInputCity1">City</label>
+                              <input type="text" class="form-control" id="exampleInputCity1" placeholder="Location">
+                            </div> -->
+
+                            <button type="submit" class="btn btn-primary me-2">Submit</button>
+                        </form>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <!-- Modal Popup -->
+
             <div class="col-lg-12 grid-margin stretch-card mt-4">
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Users</h4>
                   <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table">
                       <thead>
                         <tr> 
                           <th>ID</th>
@@ -548,7 +610,7 @@
                           <th>Email</th>
                           <th>SignUp Date</th>
                           <th>Role</th>
-                          <th>Action</th>
+                          <!-- <th>Action</th> -->
                         </tr>
                       </thead>
                       <tbody>
@@ -556,6 +618,7 @@
                         <?php
                             if($results->num_rows > 0){
                                 while($row = $results->fetch_assoc()){
+                                    $checkRole = ($row["role_id"] > 0) ? $row["role_id"] : "N/A";
                                     echo '<tr>';
                                         echo '<td>' . $row["id"] . '</a> </td>';
                                         echo '<td>' . $row["firstName"] . '</td>';
@@ -563,7 +626,7 @@
                                         echo '<td>' . $row["username"] . '</td>';
                                         echo '<td>' . $row["email"] . '</td>';
                                         echo '<td>' . $row["signupDate"] . '</td>';
-                                        echo '<td>' . $row["roles"] . '</td>';
+                                        echo '<td>' . $checkRole . '</td>';
                                     echo '<tr>';
                                 }
                             } else{
