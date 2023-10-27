@@ -1,3 +1,13 @@
+<?php 
+   require_once 'includes/config.php';
+   
+   $query = "SELECT * FROM users";
+
+   $results = $conn->query($query);
+
+   var_dump($results);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +15,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Ecommerce - Admin</title>
+  <title>Ecommerce - Admin (Users)</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="assets/vendors/feather/feather.css">
   <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
@@ -526,27 +536,40 @@
             <div class="col-lg-12 grid-margin stretch-card mt-4">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Roles</h4>
+                  <h4 class="card-title">Users</h4>
                   <div class="table-responsive">
                     <table class="table table-striped">
                       <thead>
                         <tr> 
                           <th>ID</th>
-                          <th>Role Name</th>
-                          <th>Created At</th>
-                          <th>Updated At</th>
+                          <th>Firstname</th>
+                          <th>Lastname</th>
+                          <th>Username</th>
+                          <th>Email</th>
+                          <th>SignUp Date</th>
+                          <th>Role</th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
-
-                        <tr>
-                          <td class="py-1">0</td>
-                          <td>1</td>
-                          <td>2</td>
-                          <td>3</td>
-                          <td>4</td>
-                        </tr>
+                        
+                        <?php
+                            if($results->num_rows > 0){
+                                while($row = $results->fetch_assoc()){
+                                    echo '<tr>';
+                                        echo '<td>' . $row["id"] . '</a> </td>';
+                                        echo '<td>' . $row["firstName"] . '</td>';
+                                        echo '<td>' . $row["lastName"] . '</td>';
+                                        echo '<td>' . $row["username"] . '</td>';
+                                        echo '<td>' . $row["email"] . '</td>';
+                                        echo '<td>' . $row["signupDate"] . '</td>';
+                                        echo '<td>' . $row["roles"] . '</td>';
+                                    echo '<tr>';
+                                }
+                            } else{
+                                    echo "No data";
+                            }
+                        ?>
                         
                       </tbody>
                     </table>
