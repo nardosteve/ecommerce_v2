@@ -540,7 +540,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                     <div class="modal-body">
-                        <form class="forms-sample">
+                        <form class="forms-sample" method="POST" enctype="multipart/form-data">
                             <div class="row">
                               <div class="form-group col">
                                 <label for="firstName">Firstname</label>
@@ -573,19 +573,7 @@
                                 <label for="exampleInputPassword4">Password Confirm</label>
                                 <input type="password" class="form-control" id="exampleInputPassword4" placeholder="Password">
                               </div>
-                              <!-- <div class="form-group col">
-                                <label for="exampleSelectGender">Gender</label>
-                                  <select class="form-control" id="exampleSelectGender">
-                                    <option>Male</option>
-                                    <option>Female</option>
-                                  </select>
-                                </div> -->
                             </div>
-
-                            <!-- <div class="form-group">
-                              <label for="exampleInputCity1">City</label>
-                              <input type="text" class="form-control" id="exampleInputCity1" placeholder="Location">
-                            </div> -->
 
                             <button type="submit" class="btn btn-primary me-2">Submit</button>
                         </form>
@@ -630,7 +618,7 @@
                                     echo '<tr>';
                                 }
                             } else{
-                                    echo "No data";
+                                    echo "<td>No data</td>";
                             }
                         ?>
                         

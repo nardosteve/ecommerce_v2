@@ -533,19 +533,24 @@ $results = $conn->query($query);
 
             <!-- Modal Popup -->
             <div class="modal fade" id="role" tabindex="-1" aria-labelledby="" aria-hidden="true">
-              <div class="modal-dialog">
+              <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Role</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
-                  <div class="modal-body">
-                    ...
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                  </div>
+                    <div class="modal-body">
+                        <form class="forms-sample" method="POST" enctype="multipart/form-data">
+                            <div class="row">
+                              <div class="form-group col">
+                                <label for="role">Rolename</label>
+                                <input type="text" class="form-control" id="role" placeholder="Role">
+                              </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary me-2">Submit</button>
+                        </form>
+                    </div>
                 </div>
               </div>
             </div>
