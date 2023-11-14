@@ -2,8 +2,10 @@
    require_once 'includes/config.php';
    
    $query = "SELECT * FROM users";
-
    $results = $conn->query($query);
+
+   $countries = "SELECT * FROM countries";
+   $countryData = $conn->query($countries);
 ?>
 
 <!DOCTYPE html>
@@ -553,6 +555,27 @@
                             </div>
 
                             <div class="row">
+                              <div class="form-group">
+                                <label for="country">Country</label>
+                                <select class="form-control" id="country" name="country">
+                                  <?php
+                                  if($countryData->num_rows > 0){
+                                    while($row = $countryData->fetch_assoc()){
+                                      $country_id = $row["id"];
+                                      $country_name = $row["country_name"];
+                                      $country_code = $row["country_code"];
+
+                                      echo "<option value='$country_id'>" . $country_name . ' (' . $country_code . ') ' . "</option>";
+                                    }
+                                  }else{
+
+                                  }
+                                  ?>
+                                </select>
+                              </div>
+                            </div>
+
+                            <div class="row">
                               <div class="form-group col">
                                 <label for="username">Username</label>
                                 <input type="text" class="form-control" id="username" placeholder="Username">
@@ -594,6 +617,7 @@
                           <th>ID</th>
                           <th>Firstname</th>
                           <th>Lastname</th>
+                          <th>Country</th>
                           <th>Username</th>
                           <th>Email</th>
                           <th>SignUp Date</th>
@@ -606,11 +630,14 @@
                         <?php
                             if($results->num_rows > 0){
                                 while($row = $results->fetch_assoc()){
+                                    // $checkCountry ($row["country"] != null) ? $row["country"] : "N/A";
                                     $checkRole = ($row["role_id"] > 0) ? $row["role_id"] : "N/A";
+
                                     echo '<tr>';
                                         echo '<td>' . $row["id"] . '</a> </td>';
                                         echo '<td>' . $row["firstName"] . '</td>';
                                         echo '<td>' . $row["lastName"] . '</td>';
+                                        echo '<td>' . $row["country"] . '</td>';
                                         echo '<td>' . $row["username"] . '</td>';
                                         echo '<td>' . $row["email"] . '</td>';
                                         echo '<td>' . $row["signupDate"] . '</td>';

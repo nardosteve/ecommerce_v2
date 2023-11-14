@@ -1,5 +1,9 @@
 <?php 
     require_once 'includes/config.php';
+
+    $sql = "SELECT * FROM countries;";
+
+    $countries = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -188,6 +192,29 @@
                             <input type="text" id="lastName" name="lastName" placeholder="Last Name">
                         </div>
                     </div>
+
+                    <div class="row mb-4">
+                        <div class="col-sm-12 col-md-12 col-lg-12 bg-white">
+                            <select class="w-100" name="country" id="country">
+                                <option disabled value="">Select country</option>
+                                <?php
+                                if($countries->num_rows > 0){
+                                    while($row = $countries->fetch_assoc()){
+                                        $country_id = $row["id"];
+                                        $country_name = $row["country_name"];
+                                        $country_code = $row["country_code"];
+
+                                        echo "<option value='$country_id'>" . $country_name . ' (' . $country_code . ') ' . "</option>";
+                                    }
+                                }else{
+                                    echo '<option value="">No Data</option>';
+                                }
+                                ?>
+                                
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-lg-6 col-md-12">
                             <input type="email" id="email" name="email" placeholder="Email Address">
@@ -196,6 +223,7 @@
                             <input type="text" id="username" name="username" placeholder="Username">
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-lg-6 col-md-12">
                             <input type="password" id="password" name="password" placeholder="Password">
@@ -301,6 +329,7 @@
     <script src="assets/js/mixitup.min.js"></script>
     <script src="assets/js/owl.carousel.min.js"></script>
     <script src="assets/js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
     <!-- AJAX Code to handle user registration -->
     <script text="text/javascript">
@@ -312,6 +341,7 @@
                 var data = {
                     firstname: $('#firstName').val(),
                     lastname: $('#lastName').val(),
+                    country: $('#country').val(),
                     email: $('#email').val(),
                     username: $('#username').val(),
                     password: $('#password').val(),

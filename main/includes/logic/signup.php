@@ -5,9 +5,10 @@ require_once '../config.php';
 // print_r($_POST);
 // exit;
 
-if(isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['username']) && isset($_POST['password']) && isset($_POST['passwordConfirm'])){
+if(isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['country']) && isset($_POST['email']) && isset($_POST['username']) && isset($_POST['password']) && isset($_POST['passwordConfirm'])){
     $firstName = $_POST['firstname'];
     $lastName = $_POST['lastname'];
+    $country = $_POST['country'];
     $email = $_POST['email'];
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -20,8 +21,8 @@ if(isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['emai
 
         //Prepare and execute the SQL query
         $sql = "INSERT INTO USERS 
-        (firstName, lastName, username, email, `password`)
-         VALUES('$firstName', '$lastName', '$username', '$email', '$hashedPassword')";
+        (firstName, lastName, country, username, email, `password`)
+         VALUES('$firstName', '$lastName', '$country', '$username', '$email', '$hashedPassword')";
 
         if($conn->query($sql)){
             echo "Account created!";
