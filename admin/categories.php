@@ -536,30 +536,26 @@
               <div class="modal-dialog  modal-xl">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add category</h1>
+                    <h1 class="modal-title fs-5" id="">Add Category</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                     <div class="modal-body">
-                        <form class="forms-sample" method="POST" enctype="multipart/form-data">
+                        <form class="forms-sample" id="categoryForm" method="POST" enctype="multipart/form-data">
                             <div class="row">
                               <div class="form-group col">
-                                <label for="firstName">Name</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="Name">
+                                <label for="categoryName">Name</label>
+                                <input type="text" class="form-control" id="categoryName" name="categoryName" placeholder="Category">
                               </div>
                               <div class="form-group col">
-                                <label for="lastName">Description</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="Description">
+                                <label for="description">Description</label>
+                                <input type="text" class="form-control" id="description" name="description" placeholder="Description">
                               </div>
                             </div>
 
                             <div class="row">
-                              <div class="form-group col ">
-                                <label for="username">Image</label>
-                                <input type="file" class="form-control">
-                              </div>
                               <div class="form-group col">
-                                <label for="email">Slug</label>
-                                <input type="email" class="form-control" id="email" placeholder="Email">
+                                <label for="slug">Slug</label>
+                                <input type="text" class="form-control" id="slug" name="slug" placeholder="Slug">
                               </div>
                             </div>
 
@@ -582,7 +578,6 @@
                           <th>ID</th>
                           <th>Name</th>
                           <th>Description</th>
-                          <th>Image URL</th>
                           <th>Slug</th>
                           <th>Created At</th>
                           <th>Updated At</th>
@@ -598,7 +593,6 @@
                                         echo '<td>' . $row["id"] . '</a> </td>';
                                         echo '<td>' . $row["name"] . '</td>';
                                         echo '<td>' . $row["description"] . '</td>';
-                                        echo '<td>' . $row["image_url"] . '</td>';
                                         echo '<td>' . $row["slug"] . '</td>';
                                         echo '<td>' . $row["created_at"] . '</td>';
                                         echo '<td>' . $row["updated_at"] . '</td>';
@@ -655,6 +649,39 @@
   <script src="assets/js/Chart.roundedBarCharts.js"></script>
   <!-- End custom js for this page-->
 </body>
+
+    <!-- AJAX Code to handle user registration -->
+    <script text="text/javascript">
+        $(document).ready(function(e){
+            $('#categoryForm').on('submit', (function(e){
+                e.preventDefault();
+
+                //Get data from the form
+                var data = {
+                  categoryName: $('#categoryName').val(),
+                    description: $('#description').val(),
+                    slug: $('#slug').val(),
+                };
+                
+                console.log(data);
+
+                $.ajax({
+                    url: 'includes/logic/add-category.php',
+                    type: 'POST',
+                    data: data,
+                    cache: false,
+                    success: function(response){
+                        // alert(response)
+                        console.log("Response is: " + response);
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                });
+            }));
+        });
+    </script>
+    <!-- AJAX Code to handle user registration -->
 
 </html>
 

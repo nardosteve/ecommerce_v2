@@ -540,11 +540,11 @@ $results = $conn->query($query);
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                     <div class="modal-body">
-                        <form class="forms-sample" method="POST" enctype="multipart/form-data">
+                        <form class="forms-sample" id="roleForm" method="POST" enctype="multipart/form-data">
                             <div class="row">
                               <div class="form-group col">
-                                <label for="role">Rolename</label>
-                                <input type="text" class="form-control" id="role" placeholder="Role">
+                                <label for="roleName">Rolename</label>
+                                <input type="text" class="form-control" id="roleName" name="roleName" placeholder="Role">
                               </div>
                             </div>
 
@@ -633,6 +633,37 @@ $results = $conn->query($query);
   <script src="assets/js/dashboard.js"></script>
   <script src="assets/js/Chart.roundedBarCharts.js"></script>
   <!-- End custom js for this page-->
+
+      <!-- AJAX Code to handle user registration -->
+      <script text="text/javascript">
+        $(document).ready(function(e){
+            $('#roleForm').on('submit', (function(e){
+                e.preventDefault();
+
+                //Get data from the form
+                var data = {
+                    roleName: $('#roleName').val(),
+                };
+                
+                console.log(data);
+
+                $.ajax({
+                    url: 'includes/logic/add-role.php',
+                    type: 'POST',
+                    data: data,
+                    cache: false,
+                    success: function(response){
+                        // alert(response)
+                        console.log("Response is: " + response);
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                });
+            }));
+        });
+    </script>
+    <!-- AJAX Code to handle user registration -->
 </body>
 
 </html>

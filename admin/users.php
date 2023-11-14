@@ -542,15 +542,15 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                     <div class="modal-body">
-                        <form class="forms-sample" method="POST" enctype="multipart/form-data">
+                        <form class="forms-sample" id="registerForm" method="POST" enctype="multipart/form-data">
                             <div class="row">
                               <div class="form-group col">
                                 <label for="firstName">Firstname</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="Firstname">
+                                <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Firstname">
                               </div>
                               <div class="form-group col">
                                 <label for="lastName">Lastname</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="Lastname">
+                                <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Lastname">
                               </div>
                             </div>
 
@@ -578,23 +578,23 @@
                             <div class="row">
                               <div class="form-group col">
                                 <label for="username">Username</label>
-                                <input type="text" class="form-control" id="username" placeholder="Username">
+                                <input type="text" class="form-control" id="username" name="username" placeholder="Username">
                               </div>
                               <div class="form-group col">
                                 <label for="email">Email Address</label>
-                                <input type="email" class="form-control" id="email" placeholder="Email">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email">
                               </div>
                             </div>
 
                             <div class="row">
                               <div class="form-group col">
-                                <label for="exampleInputPassword4">Password</label>
-                                <input type="password" class="form-control" id="exampleInputPassword4" placeholder="Password">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                               </div>
 
                               <div class="form-group col">
-                                <label for="exampleInputPassword4">Password Confirm</label>
-                                <input type="password" class="form-control" id="exampleInputPassword4" placeholder="Password">
+                                <label for="passwordConfirm">Password Confirm</label>
+                                <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm" placeholder="Password Confirm">
                               </div>
                             </div>
 
@@ -694,6 +694,43 @@
   <script src="assets/js/dashboard.js"></script>
   <script src="assets/js/Chart.roundedBarCharts.js"></script>
   <!-- End custom js for this page-->
+
+    <!-- AJAX Code to handle user registration -->
+    <script text="text/javascript">
+        $(document).ready(function(e){
+            $('#registerForm').on('submit', (function(e){
+                e.preventDefault();
+
+                //Get data from the form
+                var data = {
+                    firstname: $('#firstName').val(),
+                    lastname: $('#lastName').val(),
+                    country: $('#country').val(),
+                    email: $('#email').val(),
+                    username: $('#username').val(),
+                    password: $('#password').val(),
+                    passwordConfirm: $('#passwordConfirm').val(),
+                };
+                
+                console.log(data);
+
+                $.ajax({
+                    url: 'includes/logic/add-user.php',
+                    type: 'POST',
+                    data: data,
+                    cache: false,
+                    success: function(response){
+                        // alert(response)
+                        console.log("Response is: " + response);
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                });
+            }));
+        });
+    </script>
+    <!-- AJAX Code to handle user registration -->
 </body>
 
 </html>
