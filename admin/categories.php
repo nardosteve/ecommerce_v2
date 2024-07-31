@@ -591,7 +591,7 @@
                                 while($row = $results->fetch_assoc()){
                                     echo '<tr>';
                                         echo '<td>' . $row["id"] . '</a> </td>';
-                                        echo '<td>' . $row["name"] . '</td>';
+                                        echo '<td>' . $row["category_name"] . '</td>';
                                         echo '<td>' . $row["description"] . '</td>';
                                         echo '<td>' . $row["slug"] . '</td>';
                                         echo '<td>' . $row["created_at"] . '</td>';
@@ -613,7 +613,6 @@
         </div>
         <!-- content-wrapper ends -->
 
-    
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
@@ -650,7 +649,7 @@
   <!-- End custom js for this page-->
 </body>
 
-    <!-- AJAX Code to handle user registration -->
+    <!-- AJAX Code -->
     <script text="text/javascript">
         $(document).ready(function(e){
             $('#categoryForm').on('submit', (function(e){
@@ -658,7 +657,7 @@
 
                 //Get data from the form
                 var data = {
-                  categoryName: $('#categoryName').val(),
+                    categoryName: $('#categoryName').val(),
                     description: $('#description').val(),
                     slug: $('#slug').val(),
                 };
@@ -681,7 +680,7 @@
             }));
         });
     </script>
-    <!-- AJAX Code to handle user registration -->
+    <!-- AJAX Code -->
 
 </html>
 

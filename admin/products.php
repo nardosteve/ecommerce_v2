@@ -540,49 +540,52 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                     <div class="modal-body">
-                        <form class="forms-sample" method="POST" enctype="multipart/form-data">
-                            <div class="row">
+                      <form class="forms-sample" id="productForm" method="POST" enctype="multipart/form-data">
+                          <div class="row">
                               <div class="form-group col">
-                                <label for="firstName">Product Name</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="Name">
+                                  <label for="productName">Product Name</label>
+                                  <input type="text" class="form-control" id="productName" name="productName" placeholder="Product Name">
                               </div>
                               <div class="form-group col">
-                                <label for="lastName">Description</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="Description">
+                                  <label for="image_url">Product Image</label>
+                                  <input type="file" class="form-control" id="image_url" name="image_url">
                               </div>
-                            </div>
+                          </div>
 
-                            <div class="row">
-                              <div class="form-group col ">
-                                <label for="username">Price</label>
-                                <input type="text" class="form-control">
+                          <div class="row">
+                              <div class="form-group col">
+                                  <label for="price">Price</label>
+                                  <input type="text" class="form-control" id="price" name="price" placeholder="Price">
                               </div>
                               <div class="form-group col">
-                                <label for="email">Stock Quantity</label>
-                                <input type="email" class="form-control" id="email" placeholder="Email">
+                                  <label for="stockQuantity">Stock Quantity</label>
+                                  <input type="text" class="form-control" id="stockQuantity" name="stockQuantity" placeholder="Stock Quantity">
                               </div>
-                            </div>
+                          </div>
 
-                            <div class="row">
-                              <div class="form-group col ">
-                                <label for="username">Category</label>
-                                <input type="text" class="form-control">
+                          <div class="row">
+                              <div class="form-group col">
+                                  <label for="category_id">Category</label>
+                                  <select class="form-control" id="category_id" name="category_id">
+                                      <option value="1">Category 1</option>
+                                      <option value="2">Category 2</option>
+                                  </select>
                               </div>
                               <div class="form-group col">
-                                <label for="email">Vendor</label>
-                                <input type="email" class="form-control" id="email" placeholder="Email">
+                                  <label for="vendor">Vendor</label>
+                                  <input type="email" class="form-control" id="vendor" name="vendor" placeholder="Vendor">
                               </div>
-                            </div>
-
-                            <div class="row">
-                              <div class="form-group col">
-                                <label for="username">Image</label>
-                                <input type="file" class="form-control">
+                          </div>
+      
+                          <div class="row">
+                              <div class="form-group col-12">
+                                  <label for="productDescription">Description</label>
+                                  <textarea class="form-control" id="productDescription" name="productDescription" placeholder="Product Description" rows="7"></textarea>
                               </div>
-                            </div>
+                          </div>
 
-                            <button type="submit" class="btn btn-primary me-2">Submit</button>
-                        </form>
+                          <button type="submit" class="btn btn-primary me-2">Submit</button>
+                      </form>
                     </div>
                 </div>
               </div>
@@ -676,6 +679,43 @@
   <script src="assets/js/Chart.roundedBarCharts.js"></script>
   <!-- End custom js for this page-->
 </body>
+
+    <!-- AJAX Code -->
+    <script text="text/javascript">
+        $(document).ready(function(e){
+            $('#productForm').on('submit', (function(e){
+                e.preventDefault();
+
+                //Get data from the form
+                var data = {
+                    productName: $('#productName').val(),
+                    productDescription: $('#productDescription').val(),
+                    price: $('#price').val(),
+                    stockQuantity: $('#stockQuantity').val(),
+                    category: $('#category').val(),
+                    vendor: $('#vendor').val(),
+                    image: $('#image').val(),
+                };
+                
+                console.log(data);
+
+                $.ajax({
+                    url: 'includes/logic/add-product.php',
+                    type: 'POST',
+                    data: data,
+                    cache: false,
+                    success: function(response){
+                        // alert(response)
+                        console.log("Response is: " + response);
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                });
+            }));
+        });
+    </script>
+    <!-- AJAX Code -->
 
 </html>
 
